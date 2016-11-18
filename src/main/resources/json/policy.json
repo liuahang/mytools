@@ -1,0 +1,63 @@
+{
+  "id": "abffac59fb8e4d868ca257609c541c3a",
+  "name": "test_self",
+  "platform": "JAVA",
+  "fromMir": false,
+  "hosts": [
+    {
+      "name": "host-172-16-80-136",
+      "ip": "172.16.80.136",
+      "roles": [
+        "SERVER"
+      ],
+      "fromMir": false,
+      "status": "UNKNOWN",
+      "info": {},
+      "id": "008ec4ddf5094e67b707c0e5459b885d"
+    }
+  ],
+  "created": 1476423434,
+  "updated": 1476423434,
+  "policy": [
+    {
+      "id": "891c4478204d4a409e6cda6acb3018c1",
+      "name": "测试策略",
+      "type": "1",
+      "state": "1",
+      "objects": 8,
+      "describe": "策略",
+      "tactic": [
+        {
+          "id": "001001",
+          "name": "CPU使用率",
+          "operator": ">",
+          "duration": "15",
+          "value": "80%",
+          "tag": "server.cpu_load.load"
+        },
+        {
+          "id": "001002",
+          "name": "内存使用量",
+          "operator": ">",
+          "duration": "5",
+          "value": "8G",
+          "tag": "server.memory.used_percent"
+        },
+        {
+          "id": "001003",
+          "name": "磁盘使用率",
+          "operator": ">",
+          "duration": "30",
+          "value": "90%",
+          "tag": "server.disk.used_percent"
+        }
+      ],
+      "level": "严重"
+    }
+  ],
+  "owner_id": "selfRegister",
+  "project_id": "selfRegister",
+  "project_name": "selfRegister",
+  "agent_installer_url": "http://172.16.80.85:8090/mir-monitoring-api/public/5a90505be95c480db13b00a6ea326722.sh",
+  "role_id": null
+}
