@@ -11,6 +11,25 @@ import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ *读取指定目录下的json文件并转换成Map。
+ *用户本地模拟远程返回报文做调试接口用。
+ *需用到的jar的pom.xml配置：
+ *    <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.2</version>
+          
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.1.1</version>
+            
+        </dependency> 
+ *
+ *
+ */
 public class TestJsonRead {
 
 	public static void main(String args[])  throws Exception {
