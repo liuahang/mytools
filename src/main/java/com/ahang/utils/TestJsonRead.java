@@ -1,4 +1,4 @@
-package com.ahang.test;
+package com.ahang.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,5 +47,14 @@ public class TestJsonRead {
         json = writer.toString();
         map = new ObjectMapper().readValue(json, HashMap.class);
         return map;
+	}
+	
+	public String getJsonString() throws Exception {
+		String json = "";
+		InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/policy.json");
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(stream, writer, String.valueOf(Charset.defaultCharset()));
+        json = writer.toString();
+        return json;
 	}
 }
