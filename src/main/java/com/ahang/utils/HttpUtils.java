@@ -15,10 +15,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -26,9 +29,13 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 public class HttpUtils {
 
@@ -37,6 +44,45 @@ public class HttpUtils {
 	private static final int TIMEOUT = 6000;
 
 	private HttpUtils() {
+	}
+	
+	public static final int CONNECTION_TIMEOUT = 100000;
+	public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+	
+	
+	public static String requestGet(String url, Map<String, String> headerMap)  {  
+		String jsonStr = "";
+        HttpGet httpget = new HttpGet(url);  
+        //配置请求的超时设置  
+        RequestConfig requestConfig = RequestConfig.custom()    
+                .setConnectionRequestTimeout(CONNECTION_TIMEOUT)  
+                .setConnectTimeout(CONNECTION_TIMEOUT)    
+                .setSocketTimeout(CONNECTION_TIMEOUT).build();    
+        httpget.setConfig(requestConfig);
+        httpget.addHeader("Content-Type", CONTENT_TYPE_APPLICATION_JSON);
+        //httpPost.addHeader("Authorization", headerMap.get("Authorization"));
+        for(Map.Entry<String, String> entry:headerMap.entrySet()){    
+        	httpget.addHeader(entry.getKey(), entry.getValue());
+        }
+        CloseableHttpClient httpclient = HttpClientBuilder.create().build();  
+        CloseableHttpResponse response;
+		try {
+			response = httpclient.execute(httpget);
+			 if(response != null ){
+	        	 HttpEntity entity = response.getEntity();          
+	             jsonStr = EntityUtils.toString(entity);
+	             httpget.releaseConnection();  
+	        }
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+         
+        return jsonStr;
 	}
 	
 	/**
@@ -246,6 +292,14 @@ public class HttpUtils {
 		BufferedReader br = null;
 		try {
 			HttpResponse httpResponse = closeableHttpClient.execute(httpPost);
+			//fortest
+			System.out.println("*****************************");
+			Header[] headers = httpResponse.getAllHeaders();
+			for(int i = 0;i<headers.length;i++){
+				System.out.println("" + headers[i].getName()+"|" +headers[i].getValue() );
+			}
+			System.out.println("*****************************");
+			////
 			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String str = null;
 				StringBuilder sb = new StringBuilder();
