@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.baidu.unbiz.common.io.ReaderUtil;
+//import com.baidu.unbiz.common.io.ReaderUtil;
 
 public class Constants {
     private static Constants instance = null;
@@ -15,16 +15,11 @@ public class Constants {
     private static List<String>  stockNameList = new ArrayList<String>();
 	private Constants(){
 		String filePath = "E:\\个人东西\\stock\\all_stock.txt";
-		try {
-			List<String[]> list = ReaderUtil.readLinesAndClose(filePath, "|");
-			for(String[] str : list){
-				stockMap.put(str[0], str[1]);
-				symbolList.add(str[0]);
-				stockNameList.add(str[1]);
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		List<String[]> list = null;//ReaderUtil.readLinesAndClose(filePath, "|");
+		for(String[] str : list){
+			stockMap.put(str[0], str[1]);
+			symbolList.add(str[0]);
+			stockNameList.add(str[1]);
 		}
 		
 	}

@@ -24,7 +24,7 @@ public class StockService {
 		para.put("username", userName);
 		para.put("password",password);
 	     token = StockUtil.getXieQiuToken(loginurl, para);
-		System.out.println("token==" + token);
+		//System.out.println("token==" + token);
 		return token;
 	}
 	
@@ -44,7 +44,7 @@ public class StockService {
 		Map<String,String> para = new HashMap<String,String>();
 	try {
 	    str = StockUtil.requestGet(uri.toString(), para,token);
-		System.out.println("str==" + str);
+		//System.out.println("str==" + str);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
