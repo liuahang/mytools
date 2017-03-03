@@ -150,6 +150,9 @@
                     <manifest>  
                         <mainClass>com.ahang.stock.Test28Plus</mainClass>  
                     </manifest>  
+                      <manifestEntries>
+                        <Class-Path>.</Class-Path>
+                     </manifestEntries>
                 </archive>  
                 <descriptorRefs>  
                     <descriptorRef>jar-with-dependencies</descriptorRef>  
